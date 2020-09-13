@@ -8,7 +8,8 @@ export default class Filter extends Component {
 				style={{
 					display: "flex",
 					flexDirection: "row",
-					justifyContent: "space-between"
+					justifyContent: "space-between",
+					marginBottom: "5vh"
 				}}
 			>
 				<div className="filter-result">{this.props.count} Products</div>

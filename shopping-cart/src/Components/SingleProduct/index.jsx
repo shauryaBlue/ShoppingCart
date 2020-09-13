@@ -1,23 +1,23 @@
 import React from "react";
 import { Box, Button, Typography } from "@material-ui/core";
 
-const SingleProduct = ({ image, title, price }) => {
+const SingleProduct = ({ product, addToCart }) => {
 	return (
 		<Box display="flex" flexDirection="column" alignItems="center" mb={5}>
 			<img
-				src={image}
+				src={product.image}
 				alt="Dress"
 				style={{ width: "290px", height: "370px" }}
 			/>
 			<Box>
-				<Typography>{title}</Typography>
+				<Typography>{product.title}</Typography>
 				<Box
 					display="flex"
 					flexDirection="row"
 					justifyContent="center"
 					alignItems="center"
 				>
-					<Typography>{price}$</Typography>
+					<Typography>{product.price}$</Typography>
 					<Button
 						style={{
 							textTransform: "none",
@@ -26,6 +26,7 @@ const SingleProduct = ({ image, title, price }) => {
 							marginLeft: 10,
 							background: "#6495ED"
 						}}
+						onClick={() => addToCart(product)}
 					>
 						Add to Cart
 					</Button>

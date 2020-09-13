@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { productList } from "../../Configs";
-import { SingleProduct, Filter } from "../../Components";
+import { SingleProduct, Filter, Cart } from "../../Components";
 
 class AllProducts extends Component {
 	constructor(props) {
@@ -9,7 +9,8 @@ class AllProducts extends Component {
 		this.state = {
 			products: productList,
 			size: "",
-			sort: ""
+			sort: "",
+			cartItems: []
 		};
 	}
 
@@ -35,6 +36,28 @@ class AllProducts extends Component {
 		});
 	};
 
+	removeFromCart = product => {
+		const cartItems = this.state.cartItems.slice();
+		this.setState({
+			cartItems: cartItems.filter(item => item.id != product.id)
+		});
+	};
+
+	addToCart = product => {
+		const cartItems = this.state.cartItems.slice();
+		let alreadyInCart = false;
+		cartItems.forEach(item => {
+			if (item._id === product._id) {
+				item.count++;
+				alreadyInCart = true;
+			}
+		});
+		if (!alreadyInCart) {
+			cartItems.push({ ...product, count: 1 });
+		}
+		this.setState({ cartItems });
+	};
+
 	filterProducts = event => {
 		if (event.target.value == "") {
 			this.setState({
@@ -54,28 +77,41 @@ class AllProducts extends Component {
 
 	render() {
 		return (
-			<Grid container>
-				<Filter
-					count={this.state.products.length}
-					size={this.state.size}
-					sort={this.state.sort}
-					sortProducts={this.sortProducts}
-					filterProducts={this.filterProducts}
-				/>
-				<Box>
-					<Grid container item md={9}>
-						{this.state.products.map(product => (
-							<Grid key={product._id} item xs={10} sm={6} md={4}>
-								<SingleProduct
-									image={product.image}
-									title={product.title}
-									price={product.price}
-								/>
-							</Grid>
-						))}
-					</Grid>
+			<Box display="flex" flexDirection="row">
+				<Box container style={{ width: "70vw", marginLeft: "5vw" }}>
+					<Filter
+						count={this.state.products.length}
+						size={this.state.size}
+						sort={this.state.sort}
+						sortProducts={this.sortProducts}
+						filterProducts={this.filterProducts}
+					/>
+					<Box>
+						<Grid container>
+							{this.state.products.map(product => (
+								<Grid
+									key={product._id}
+									item
+									xs={10}
+									sm={6}
+									md={4}
+								>
+									<SingleProduct
+										product={product}
+										addToCart={this.addToCart}
+									/>
+								</Grid>
+							))}
+						</Grid>
+					</Box>
 				</Box>
-			</Grid>
+				<Box style={{ marginLeft: "5vw" }}>
+					<Cart
+						cartItems={this.state.cartItems}
+						removeFromCart={this.removeFromCart}
+					/>
+				</Box>
+			</Box>
 		);
 	}
 }

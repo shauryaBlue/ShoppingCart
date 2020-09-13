@@ -13,7 +13,6 @@ function App() {
 				style={{ marginTop: "80px" }}
 			>
 				<AllProducts />
-				<Cart />
 			</Box>
 		</>
 	);
