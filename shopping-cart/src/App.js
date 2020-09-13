@@ -1,5 +1,5 @@
 import React from "react";
-import { AllProducts, Cart, Navbar } from "./Components";
+import { AllProducts, Navbar } from "./Components";
 import { Box } from "@material-ui/core";
 import "./App.css";
 

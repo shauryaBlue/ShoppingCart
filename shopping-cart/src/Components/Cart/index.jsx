@@ -42,7 +42,7 @@ const Cart = ({ cartItems, removeFromCart }) => {
 						</Box>
 						<Box display="flex" flexDirection="row">
 							<p>
-								{item.price}$ X {item.count}
+								${item.price} X {item.count}
 							</p>
 							<Button
 								onClick={() => removeFromCart(item)}
