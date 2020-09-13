@@ -1,13 +1,21 @@
 import React from "react";
+import { AllProducts, Cart, Navbar } from "./Components";
+import { Box } from "@material-ui/core";
 import "./App.css";
 
 function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<p>Landing Page</p>
-			</header>
-		</div>
+		<>
+			<Navbar />
+			<Box
+				display="flex"
+				flexDirection="row"
+				style={{ marginTop: "80px" }}
+			>
+				<AllProducts />
+				<Cart />
+			</Box>
+		</>
 	);
 }
 
