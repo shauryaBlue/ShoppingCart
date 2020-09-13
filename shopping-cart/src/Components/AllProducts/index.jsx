@@ -7,17 +7,65 @@ class AllProducts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: productList
+			products: productList,
+			size: "",
+			sort: ""
 		};
 	}
+
+	sortProducts = event => {
+		const sort = event.target.value;
+		this.setState({
+			sort,
+			products: this.state.products
+				.slice()
+				.sort((a, b) =>
+					sort === "highest"
+						? a.price < b.price
+							? 1
+							: -1
+						: sort === "lowest"
+						? a.price > b.price
+							? 1
+							: -1
+						: a._id > b._id
+						? 1
+						: -1
+				)
+		});
+	};
+
+	filterProducts = event => {
+		if (event.target.value == "") {
+			this.setState({
+				size: "",
+				products: productList
+			});
+		} else {
+			this.setState({
+				size: event.target.value,
+				products: productList.filter(
+					product =>
+						product.availableSizes.indexOf(event.target.value) >= 0
+				)
+			});
+		}
+	};
+
 	render() {
 		return (
-			<Grid container md={30}>
-				<Filter />
+			<Grid container>
+				<Filter
+					count={this.state.products.length}
+					size={this.state.size}
+					sort={this.state.sort}
+					sortProducts={this.sortProducts}
+					filterProducts={this.filterProducts}
+				/>
 				<Box>
-					<Grid container md={9}>
+					<Grid container item md={9}>
 						{this.state.products.map(product => (
-							<Grid item xs={10} sm={6} md={4}>
+							<Grid key={product._id} item xs={10} sm={6} md={4}>
 								<SingleProduct
 									image={product.image}
 									title={product.title}

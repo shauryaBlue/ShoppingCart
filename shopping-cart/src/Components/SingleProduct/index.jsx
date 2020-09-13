@@ -6,7 +6,7 @@ const SingleProduct = ({ image, title, price }) => {
 		<Box display="flex" flexDirection="column" alignItems="center" mb={5}>
 			<img
 				src={image}
-				alt="Photo of dress"
+				alt="Dress"
 				style={{ width: "290px", height: "370px" }}
 			/>
 			<Box>
