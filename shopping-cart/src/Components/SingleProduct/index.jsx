@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Button, Typography, Slide } from "@material-ui/core";
+import { withStyles, Box, Button, Typography, Slide } from "@material-ui/core";
+import Styles from "./styles";
 
-const SingleProduct = ({ product, addToCart }) => {
+const SingleProduct = ({ classes, product, addToCart, setActive }) => {
 	return (
 		<Slide in={true} direction="up" timeout={1000}>
 			<Box
@@ -15,6 +16,8 @@ const SingleProduct = ({ product, addToCart }) => {
 					src={product.image}
 					alt="Dress"
 					style={{ width: "290px", height: "370px" }}
+					className={classes.fullProduct}
+					onClick={() => setActive(product)}
 				/>
 				<Box>
 					<Typography style={{ fontFamily: "Montserrat" }}>
@@ -49,4 +52,4 @@ const SingleProduct = ({ product, addToCart }) => {
 	);
 };
 
-export default SingleProduct;
+export default withStyles(Styles)(SingleProduct);

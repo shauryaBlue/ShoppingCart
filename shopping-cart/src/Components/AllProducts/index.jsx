@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Modal, Button } from "@material-ui/core";
 import { productList } from "../../Configs";
 import { SingleProduct, Filter, Cart } from "../../Components";
 
@@ -8,6 +8,7 @@ class AllProducts extends Component {
 		super(props);
 		this.state = {
 			products: productList,
+			activeProduct: null,
 			size: "",
 			sort: "",
 			cartItems: localStorage.getItem("cartItems")
@@ -16,11 +17,35 @@ class AllProducts extends Component {
 		};
 	}
 
+	setActive = product => {
+		const activeProduct = product;
+		this.setState({ activeProduct });
+	};
+
+	removeActive = () => {
+		this.setState({ activeProduct: null });
+	};
+
 	createOrder = order => {
 		console.log(order);
 		alert("Create order for	" + order.name);
 	};
 
+	addToCart = product => {
+		const cartItems = this.state.cartItems.slice();
+		let alreadyInCart = false;
+		cartItems.forEach(item => {
+			if (item._id === product._id) {
+				item.count++;
+				alreadyInCart = true;
+			}
+		});
+		if (!alreadyInCart) {
+			cartItems.push({ ...product, count: 1 });
+		}
+		this.setState({ cartItems });
+		localStorage.setItem("cartItems", JSON.stringify(cartItems));
+	};
 	sortProducts = event => {
 		const sort = event.target.value;
 		this.setState({
@@ -54,22 +79,6 @@ class AllProducts extends Component {
 			JSON.stringify(cartItems.filter(item => item._id !== product._id))
 		);
 		console.log(JSON.parse(localStorage.getItem("cartItems")));
-	};
-
-	addToCart = product => {
-		const cartItems = this.state.cartItems.slice();
-		let alreadyInCart = false;
-		cartItems.forEach(item => {
-			if (item._id === product._id) {
-				item.count++;
-				alreadyInCart = true;
-			}
-		});
-		if (!alreadyInCart) {
-			cartItems.push({ ...product, count: 1 });
-		}
-		this.setState({ cartItems });
-		localStorage.setItem("cartItems", JSON.stringify(cartItems));
 	};
 
 	filterProducts = event => {
@@ -113,10 +122,21 @@ class AllProducts extends Component {
 									<SingleProduct
 										product={product}
 										addToCart={this.addToCart}
+										setActive={this.setActive}
+										removeActive={this.removeActive}
 									/>
 								</Grid>
 							))}
 						</Grid>
+
+						{/* <Modal open={this.state.activeProduct}>
+							<div>
+								<p>Active</p>
+								<Button onClick={this.removeActive}>
+									Close
+								</Button>
+							</div>
+						</Modal> */}
 					</Box>
 				</Box>
 				<Box style={{ marginLeft: "5vw" }}>
