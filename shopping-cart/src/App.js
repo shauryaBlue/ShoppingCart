@@ -10,7 +10,7 @@ function App() {
 			<Box
 				display="flex"
 				flexDirection="row"
-				style={{ marginTop: "80px" }}
+				style={{ marginTop: "80px", padding: "10px" }}
 			>
 				<AllProducts />
 			</Box>

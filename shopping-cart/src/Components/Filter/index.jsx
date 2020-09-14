@@ -9,7 +9,8 @@ export default class Filter extends Component {
 					display: "flex",
 					flexDirection: "row",
 					justifyContent: "space-between",
-					marginBottom: "5vh"
+					marginBottom: "5vh",
+					fontFamily: "Montserrat"
 				}}
 			>
 				<div className="filter-result">{this.props.count} Products</div>

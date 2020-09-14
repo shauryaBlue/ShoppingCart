@@ -84,7 +84,7 @@ class AllProducts extends Component {
 	render() {
 		return (
 			<Box display="flex" flexDirection="row">
-				<Box container style={{ width: "70vw", marginLeft: "5vw" }}>
+				<Box container style={{ width: "70vw", marginLeft: "2vw" }}>
 					<Filter
 						count={this.state.products.length}
 						size={this.state.size}

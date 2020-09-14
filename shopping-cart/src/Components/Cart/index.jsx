@@ -4,7 +4,7 @@ import { Box, Button } from "@material-ui/core";
 const Cart = ({ cartItems, removeFromCart }) => {
 	return (
 		<>
-			<div>
+			<div style={{ fontFamily: "Montserrat" }}>
 				{cartItems.length === 0 ? (
 					<p> Cart is Empty</p>
 				) : (
@@ -46,7 +46,10 @@ const Cart = ({ cartItems, removeFromCart }) => {
 							</p>
 							<Button
 								onClick={() => removeFromCart(item)}
-								style={{ textTransform: "none" }}
+								style={{
+									textTransform: "none",
+									fontFamily: "Montserrat"
+								}}
 							>
 								Remove from Cart
 							</Button>

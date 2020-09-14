@@ -17,7 +17,12 @@ const Navbar = ({ classes, props }) => {
 				<Toolbar className={classes.toolbarBackground}>
 					<div style={{ flex: 1 }}>
 						<IconButton>
-							<Typography style={{ color: "white" }}>
+							<Typography
+								style={{
+									color: "white",
+									fontFamily: "Montserrat"
+								}}
+							>
 								React Shopping Cart
 							</Typography>
 						</IconButton>
