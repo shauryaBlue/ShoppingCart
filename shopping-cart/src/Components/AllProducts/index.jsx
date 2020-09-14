@@ -16,6 +16,11 @@ class AllProducts extends Component {
 		};
 	}
 
+	createOrder = order => {
+		console.log(order);
+		alert("Create order for	" + order.name);
+	};
+
 	sortProducts = event => {
 		const sort = event.target.value;
 		this.setState({
@@ -41,11 +46,14 @@ class AllProducts extends Component {
 	removeFromCart = product => {
 		const cartItems = this.state.cartItems.slice();
 		this.setState({
-			cartItems: cartItems.filter(item => item.id !== product.id)
+			cartItems: cartItems.filter(item => item._id !== product._id)
 		});
-		const newCartItems = cartItems.filter(item => item.id === product.id);
-		localStorage.setItem("cartItems", JSON.stringify(newCartItems));
 		console.log(this.state.cartItems);
+		localStorage.setItem(
+			"cartItems",
+			JSON.stringify(cartItems.filter(item => item._id !== product._id))
+		);
+		console.log(JSON.parse(localStorage.getItem("cartItems")));
 	};
 
 	addToCart = product => {
@@ -115,6 +123,7 @@ class AllProducts extends Component {
 					<Cart
 						cartItems={this.state.cartItems}
 						removeFromCart={this.removeFromCart}
+						createOrder={this.createOrder}
 					/>
 				</Box>
 			</Box>
