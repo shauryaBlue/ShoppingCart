@@ -73,7 +73,6 @@ class AllProducts extends Component {
 		this.setState({
 			cartItems: cartItems.filter(item => item._id !== product._id)
 		});
-		console.log(this.state.cartItems);
 		localStorage.setItem(
 			"cartItems",
 			JSON.stringify(cartItems.filter(item => item._id !== product._id))
@@ -128,15 +127,6 @@ class AllProducts extends Component {
 								</Grid>
 							))}
 						</Grid>
-
-						{/* <Modal open={this.state.activeProduct}>
-							<div>
-								<p>Active</p>
-								<Button onClick={this.removeActive}>
-									Close
-								</Button>
-							</div>
-						</Modal> */}
 					</Box>
 				</Box>
 				<Box style={{ marginLeft: "5vw" }}>
