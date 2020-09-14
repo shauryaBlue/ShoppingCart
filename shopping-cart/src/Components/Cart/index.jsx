@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Slide } from "@material-ui/core";
 
 class Cart extends Component {
 	constructor(props) {
@@ -49,40 +49,45 @@ class Cart extends Component {
 				</div>
 				<div>
 					{this.props.cartItems.map(item => (
-						<Box
-							display="flex"
-							flexDirection="column"
-							style={{ border: "1px black solid", padding: 5 }}
-						>
-							<Box display="flex" flexDirection="row">
-								<img
-									src={item.image}
-									alt="Dress"
-									style={{
-										height: "50px",
-										width: "50px",
-										marginRight: 5
-									}}
-								/>
-								<p>{item.title}</p>
+						<Slide direction="left" in={true} timeout={500}>
+							<Box
+								display="flex"
+								flexDirection="column"
+								style={{
+									border: "1px black solid",
+									padding: 5
+								}}
+							>
+								<Box display="flex" flexDirection="row">
+									<img
+										src={item.image}
+										alt="Dress"
+										style={{
+											height: "50px",
+											width: "50px",
+											marginRight: 5
+										}}
+									/>
+									<p>{item.title}</p>
+								</Box>
+								<Box display="flex" flexDirection="row">
+									<p>
+										${item.price} X {item.count}
+									</p>
+									<Button
+										onClick={() =>
+											this.props.removeFromCart(item)
+										}
+										style={{
+											textTransform: "none",
+											fontFamily: "Montserrat"
+										}}
+									>
+										Remove from Cart
+									</Button>
+								</Box>
 							</Box>
-							<Box display="flex" flexDirection="row">
-								<p>
-									${item.price} X {item.count}
-								</p>
-								<Button
-									onClick={() =>
-										this.props.removeFromCart(item)
-									}
-									style={{
-										textTransform: "none",
-										fontFamily: "Montserrat"
-									}}
-								>
-									Remove from Cart
-								</Button>
-							</Box>
-						</Box>
+						</Slide>
 					))}
 				</div>
 				<Button
@@ -96,44 +101,49 @@ class Cart extends Component {
 					Proceed
 				</Button>
 				{this.state.showCheckout && (
-					<div>
-						<form onSubmit={this.createOrder}>
-							<ul style={{ listStyleType: "none" }}>
-								<li>
-									<label>Name</label>
-									<input
-										name="name"
-										type="text"
-										required
-										onChange={this.handleInput}
-									></input>
-								</li>
-								<li>
-									<label>Address</label>
-									<input
-										name="address"
-										type="text"
-										required
-										onChange={this.handleInput}
-									></input>
-								</li>
-								<li>
-									<label>Email</label>
-									<input
-										name="email"
-										type="email"
-										required
-										onChange={this.handleInput}
-									></input>
-								</li>
-								<li>
-									<Button variant="outlined" type="submit">
-										Checkout
-									</Button>
-								</li>
-							</ul>
-						</form>
-					</div>
+					<Slide direction="left" in={true} timeout={500}>
+						<div>
+							<form onSubmit={this.createOrder}>
+								<ul style={{ listStyleType: "none" }}>
+									<li>
+										<label>Name</label>
+										<input
+											name="name"
+											type="text"
+											required
+											onChange={this.handleInput}
+										></input>
+									</li>
+									<li>
+										<label>Address</label>
+										<input
+											name="address"
+											type="text"
+											required
+											onChange={this.handleInput}
+										></input>
+									</li>
+									<li>
+										<label>Email</label>
+										<input
+											name="email"
+											type="email"
+											required
+											onChange={this.handleInput}
+										></input>
+									</li>
+									<li>
+										<Button
+											variant="outlined"
+											type="submit"
+										>
+											Checkout
+										</Button>
+									</li>
+								</ul>
+							</form>
+						</div>
+					</Slide>
 				)}
 			</>
 		);
