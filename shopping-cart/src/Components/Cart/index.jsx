@@ -35,15 +35,7 @@ class Cart extends Component {
 					) : (
 						<div>
 							<p>You have {this.props.cartItems.length} items</p>
-							<p>
-								TOTAL: {"$"}
-								{this.props.cartItems.reduce(
-									(total, item) =>
-										total +
-										item.count * parseFloat(item.price),
-									0
-								)}
-							</p>
+							<p></p>
 						</div>
 					)}
 				</div>
@@ -54,7 +46,7 @@ class Cart extends Component {
 								display="flex"
 								flexDirection="column"
 								style={{
-									border: "1px black solid",
+									border: "0.1px #efedee solid",
 									padding: 5
 								}}
 							>
@@ -90,49 +82,84 @@ class Cart extends Component {
 						</Slide>
 					))}
 				</div>
-				<Button
-					variant="outlined"
-					onClick={() =>
-						this.setState({
-							showCheckout: true
-						})
-					}
-				>
-					Proceed
-				</Button>
+				{this.props.cartItems.length === 0 ? (
+					<Box></Box>
+				) : (
+					<div>
+						{!this.state.showCheckout && (
+							<Button
+								variant="outlined"
+								onClick={() =>
+									this.setState({
+										showCheckout: true
+									})
+								}
+							>
+								Proceed
+							</Button>
+						)}
+						<p>
+							TOTAL: {"$"}
+							{this.props.cartItems.reduce(
+								(total, item) =>
+									total + item.count * parseFloat(item.price),
+								0
+							)}
+						</p>
+					</div>
+				)}
+
 				{this.state.showCheckout && (
 					<Slide direction="left" in={true} timeout={500}>
-						<div>
-							<form onSubmit={this.createOrder}>
-								<ul style={{ listStyleType: "none" }}>
-									<li>
+						<Box display="flex" flexDirection="column">
+							<form
+								onSubmit={this.createOrder}
+								style={{
+									width: "85%",
+									display: "flex",
+									flexDirection: "column",
+									listStyleType: "none"
+								}}
+							>
+								<ul
+									style={{
+										display: "flex",
+										flexDirection: "column",
+										listStyleType: "none",
+										paddingLeft: 0
+									}}
+								>
+									<li style={{ marginBottom: 4 }}>
 										<label>Name</label>
 										<input
 											name="name"
 											type="text"
 											required
 											onChange={this.handleInput}
+											style={{ float: "right" }}
 										></input>
 									</li>
-									<li>
+									<li style={{ marginBottom: 4 }}>
 										<label>Address</label>
 										<input
 											name="address"
 											type="text"
 											required
 											onChange={this.handleInput}
+											style={{ float: "right" }}
 										></input>
 									</li>
-									<li>
+									<li style={{ marginBottom: 4 }}>
 										<label>Email</label>
 										<input
 											name="email"
 											type="email"
 											required
 											onChange={this.handleInput}
+											style={{ float: "right" }}
 										></input>
 									</li>
-									<li>
+									<li style={{ marginBottom: 4 }}>
 										<Button
 											variant="outlined"
 											type="submit"
@@ -142,7 +169,7 @@ class Cart extends Component {
 									</li>
 								</ul>
 							</form>
-						</div>
+						</Box>
 					</Slide>
 				)}
 			</>
